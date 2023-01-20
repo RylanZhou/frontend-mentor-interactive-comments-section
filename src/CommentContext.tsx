@@ -62,7 +62,7 @@ export default function CommentsProvider({ children }: React.PropsWithChildren) 
   const replyTo = (content: string, to?: string, id?: number) => {
     const newComment: IComment = {
       id: increment,
-      createdAt: 'Just now',
+      createdAt: Date.now(),
       content,
       user: currentUser,
       score: 0,
@@ -97,7 +97,7 @@ export default function CommentsProvider({ children }: React.PropsWithChildren) 
     if (targetComment) {
       targetComment.content = content;
       targetComment.score = 0;
-      targetComment.createdAt = 'Just now';
+      targetComment.createdAt = Date.now();
     }
 
     setComments(commentsCopy);

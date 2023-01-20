@@ -9,7 +9,7 @@ interface IUser {
 interface IComment {
   id: number;
   content: string;
-  createdAt: string;
+  createdAt: number;
   score: number;
   user: IUser;
   replies?: IComment[];

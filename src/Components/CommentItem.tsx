@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as timeago from 'timeago.js';
+
 import CommentList from './CommentList';
 import Input from './Input';
 
@@ -22,6 +24,15 @@ export default function CommentItem({
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
   const [editingContent, setEditingContent] = useState(`@${props.replyingTo} ${props.content}`);
+  const [createdAt, setCreatedAt] = useState(timeago.format(props.createdAt));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCreatedAt(timeago.format(props.createdAt));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <li className={styles.CommentItem}>
@@ -30,7 +41,7 @@ export default function CommentItem({
           <img src={user.image.png} alt="avatar" />
           <span className={styles.username}>{user.username}</span>
           {isOwner && <span className={styles.you}>you</span>}
-          <span className={styles.time}>{props.createdAt}</span>
+          <span className={styles.time}>{createdAt}</span>
         </div>
 
         {isEditing ? (
