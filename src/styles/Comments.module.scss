@@ -1,0 +1,173 @@
+@import './colors.scss';
+
+.CommentList {
+  list-style: none;
+
+  &.sub {
+    position: relative;
+    padding-left: 1rem;
+    margin-top: 1rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 2px;
+      background-color: $light-gray;
+    }
+  }
+
+  .CommentItem {
+    margin-bottom: 1rem;
+
+    .main {
+      padding: 1.5rem 1.2rem;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      background-color: $white;
+
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+        }
+
+        .username {
+          font-weight: bold;
+          color: $dark-gray;
+        }
+
+        .you {
+          padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+          font-size: 0.8rem;
+          font-weight: 500;
+          border-radius: 2px;
+          background-color: $blue;
+          color: $white;
+        }
+
+        .time {
+          color: $gray;
+        }
+      }
+
+      .content {
+        margin: 1rem 0;
+        line-height: 1.45;
+        color: $gray;
+        font-weight: 500;
+
+        .at {
+          color: $blue;
+          font-weight: bold;
+        }
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        padding: 1rem 1.5rem;
+        margin: 1rem 0;
+        border-radius: 6px;
+        border: 1px solid $light-gray;
+        outline: none;
+        font-size: 1rem;
+        font-weight: 500;
+        color: $gray;
+      }
+
+      .update-btn {
+        width: 7rem;
+        padding: 1rem 0;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        border: none;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 500;
+        background-color: $blue;
+        color: $white;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: $light-blue;
+        }
+      }
+
+      .operation {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .score {
+          display: flex;
+          align-items: center;
+          border-radius: 6px;
+          background-color: $lighter-gray;
+
+          span {
+            width: 2.15rem;
+            line-height: 3rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: $light-blue;
+            transition: color 0.3s;
+
+            &.num {
+              color: $blue;
+            }
+
+            &:not(.num):hover {
+              cursor: pointer;
+              color: $blue;
+            }
+          }
+        }
+
+        .buttons {
+          button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            outline: none;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: $blue;
+
+            &.delete {
+              color: $red;
+
+              &:hover {
+                color: $light-red;
+              }
+            }
+
+            img {
+              transition: opacity 0.3s;
+            }
+
+            &:hover {
+              color: $light-blue;
+
+              img {
+                opacity: 0.3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
