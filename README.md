@@ -36,7 +36,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Github](https://github.com/RylanZhou/frontend-mentor-interactive-comments-section)
-- Live Site URL: [Vercel](https://frontend-mentor-multi-step-form-nu.vercel.app/)
+- Live Site URL: [Vercel](https://frontend-mentor-interactive-comments-section-plum.vercel.app/)
 
 ## My process
 
@@ -46,7 +46,7 @@ Users should be able to:
 - Flexbox
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [timeago.js](https://timeagojs.org/) - JS Library
+- [timeago.js](https://timeago.org/) - JS Library
 - React Context Hook
 - TypeScript
 
