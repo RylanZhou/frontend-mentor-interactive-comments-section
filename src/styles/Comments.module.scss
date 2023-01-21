@@ -93,6 +93,13 @@
           font-weight: 500;
           color: $gray;
           resize: none;
+          transition: border-color 0.3s;
+          cursor: pointer;
+
+          &:hover,
+          &:focus {
+            border: 1px solid $dark-gray;
+          }
         }
 
         .update-btn {
