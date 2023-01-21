@@ -23,9 +23,7 @@ export default function CommentItem({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
-  const [editingContent, setEditingContent] = useState(
-    `${props.replyingTo ? '@' + props.replyingTo : ''}${props.content}`,
-  );
+  const [editingContent, setEditingContent] = useState(props.content);
   const [createdAt, setCreatedAt] = useState(timeago.format(props.createdAt));
 
   useEffect(() => {
@@ -64,11 +62,7 @@ export default function CommentItem({
                 <button
                   className={styles['update-btn']}
                   onClick={() => {
-                    props.onUpdate(
-                      props.replyingTo
-                        ? editingContent.replace(new RegExp(`^@${props.replyingTo} `), '')
-                        : editingContent,
-                    );
+                    props.onUpdate(editingContent);
                     setIsEditing(false);
                   }}
                 >

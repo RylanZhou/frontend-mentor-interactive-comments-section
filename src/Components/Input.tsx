@@ -11,7 +11,7 @@ export default function Input(props: {
 }) {
   const { currentUser } = useContext(CommentContext) as TCommentContext;
 
-  const [content, setContent] = useState(props.to ? `@${props.to} ` : '');
+  const [content, setContent] = useState('');
 
   return (
     <div className={`${styles.Input} ${props.type === 'reply' ? styles.reply : ''}`}>
@@ -24,8 +24,7 @@ export default function Input(props: {
       <img src={currentUser.image.png} alt="avatar" />
       <button
         onClick={() => {
-          // If replying, remove the @ prefix first
-          props.onConfirm(props.to ? content.replace(new RegExp(`^@${props.to} `), '') : content);
+          props.onConfirm(content);
           setContent('');
         }}
       >
