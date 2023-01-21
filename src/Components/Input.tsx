@@ -16,7 +16,7 @@ export default function Input(props: {
   return (
     <div className={`${styles.Input} ${props.type === 'reply' ? styles.reply : ''}`}>
       <textarea
-        rows={3}
+        rows={4}
         placeholder={props.placeholder || 'Add a comment...'}
         value={content}
         onChange={(e) => setContent(e.target.value)}

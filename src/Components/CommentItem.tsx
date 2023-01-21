@@ -23,7 +23,9 @@ export default function CommentItem({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
-  const [editingContent, setEditingContent] = useState(`@${props.replyingTo} ${props.content}`);
+  const [editingContent, setEditingContent] = useState(
+    `${props.replyingTo ? '@' + props.replyingTo : ''}${props.content}`,
+  );
   const [createdAt, setCreatedAt] = useState(timeago.format(props.createdAt));
 
   useEffect(() => {
@@ -32,75 +34,83 @@ export default function CommentItem({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [props.createdAt]);
 
   return (
     <li className={styles.CommentItem}>
       <div className={styles.main}>
-        <div className={styles.header}>
-          <img src={user.image.png} alt="avatar" />
-          <span className={styles.username}>{user.username}</span>
-          {isOwner && <span className={styles.you}>you</span>}
-          <span className={styles.time}>{createdAt}</span>
+        <div className={`${styles.score} ${styles.desktop}`}>
+          <span onClick={() => props.onVote(1)}>+</span>
+          <span className={styles.num}>{props.score}</span>
+          <span onClick={() => props.onVote(-1)}>-</span>
         </div>
 
-        {isEditing ? (
-          <>
-            <textarea
-              rows={6}
-              value={editingContent}
-              onChange={(e) => setEditingContent(e.target.value)}
-            ></textarea>
-            <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
-              <button
-                className={styles['update-btn']}
-                onClick={() => {
-                  props.onUpdate(
-                    props.replyingTo
-                      ? editingContent.replace(new RegExp(`^@${props.replyingTo} `), '')
-                      : editingContent,
-                  );
-                  setIsEditing(false);
-                }}
-              >
-                Update
-              </button>
-            </div>
-          </>
-        ) : (
-          <p className={styles.content}>
-            {props.replyingTo && <span className={styles.at}>@{props.replyingTo}</span>}{' '}
-            {props.content}
-          </p>
-        )}
-
-        <div className={styles.operation}>
-          <div className={styles.score}>
-            <span onClick={() => props.onVote(1)}>+</span>
-            <span className={styles.num}>{props.score}</span>
-            <span onClick={() => props.onVote(-1)}>-</span>
+        <div className={styles['data-area']}>
+          <div className={styles.header}>
+            <img src={user.image.png} alt="avatar" />
+            <span className={styles.username}>{user.username}</span>
+            {isOwner && <span className={styles.you}>you</span>}
+            <span className={styles.time}>{createdAt}</span>
           </div>
 
-          <span className={styles.buttons}>
-            {isOwner ? (
-              <>
-                <button className={styles.delete} onClick={props.onDelete}>
-                  <img src={DeleteIcon} alt="icon" />
-                  Delete
+          {isEditing ? (
+            <>
+              <textarea
+                rows={6}
+                value={editingContent}
+                onChange={(e) => setEditingContent(e.target.value)}
+              ></textarea>
+              <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
+                <button
+                  className={styles['update-btn']}
+                  onClick={() => {
+                    props.onUpdate(
+                      props.replyingTo
+                        ? editingContent.replace(new RegExp(`^@${props.replyingTo} `), '')
+                        : editingContent,
+                    );
+                    setIsEditing(false);
+                  }}
+                >
+                  Update
                 </button>
-                <button onClick={() => setIsEditing((prev) => !prev)}>
-                  <img src={EditIcon} alt="icon" />
-                  Edit
-                </button>
-              </>
-            ) : (
-              <button onClick={() => setIsReplying((prev) => !prev)}>
-                <img src={ReplyIcon} alt="icon" />
-                Reply
-              </button>
-            )}
-          </span>
+              </div>
+            </>
+          ) : (
+            <p className={styles.content}>
+              {props.replyingTo && <span className={styles.at}>@{props.replyingTo}</span>}{' '}
+              {props.content}
+            </p>
+          )}
         </div>
+
+        <div className={styles.score}>
+          <span onClick={() => props.onVote(1)}>+</span>
+          <span className={styles.num}>{props.score}</span>
+          <span onClick={() => props.onVote(-1)}>-</span>
+        </div>
+
+        <span className={styles.buttons}>
+          {isOwner ? (
+            <>
+              <button className={styles.delete} onClick={props.onDelete}>
+                <img src={DeleteIcon} alt="icon" />
+                Delete
+              </button>
+              <button onClick={() => setIsEditing((prev) => !prev)}>
+                <img src={EditIcon} alt="icon" />
+                Edit
+              </button>
+            </>
+          ) : (
+            <button onClick={() => setIsReplying((prev) => !prev)}>
+              <img src={ReplyIcon} alt="icon" />
+              Reply
+            </button>
+          )}
+        </span>
+
+        <div className="clear"></div>
       </div>
 
       {isReplying && (
